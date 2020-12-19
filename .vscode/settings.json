@@ -1,0 +1,17 @@
+{
+    "files.exclude": {
+        "**/node_modules/**": true
+    },
+    "files.eol": "\n",
+    "javascript.format.insertSpaceBeforeFunctionParenthesis": false,
+    "javascript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": false,
+    "typescript.format.insertSpaceBeforeFunctionParenthesis": false,
+    "typescript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": false,
+    "prettier.printWidth": 160,
+    "prettier.requireConfig": true,
+    "prettier.tabWidth": 4,
+    "editor.cursorSmoothCaretAnimation": true,
+    "editor.formatOnSave": true,
+    "workbench.iconTheme": "vscode-icons",
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+}
