@@ -1,5 +1,5 @@
 import Vue from "vue";
-import Vuetify from "vuetify/lib/framework";
+import Vuetify from "vuetify/lib";
 import de from "vuetify/src/locale/de";
 
 Vue.use(Vuetify);

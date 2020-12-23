@@ -1,30 +1,34 @@
 <template>
     <div class="projects">
         <div>Zeit Buchen</div>
-        <validation-observer ref="observer" v-slot="{ invalid }">
-            <form @submit.prevent="submit">
-                <validation-provider v-slot="{ errors }" name="project" rules="required|max:10">
-                    <v-select v-model="project" :items="projects" :item-text="item => item.name" label="Projekt" required :error-messages="errors"> </v-select>
-                </validation-provider>
-                <validation-provider v-slot="{ errors }" name="date" rules="required">
-                    <v-menu v-model="menu2" :close-on-content-click="false" :nudge-right="40" transition="scale-transition" offset-y min-width="290px">
-                        <template v-slot:activator="{ on, attrs }">
-                            <v-text-field v-model="date" :error-messages="errors" label="Datum" readonly v-bind="attrs" v-on="on" required />
-                        </template>
-                        <v-date-picker v-model="date" @input="menu2 = false"></v-date-picker>
-                    </v-menu>
-                </validation-provider>
-                <validation-provider v-slot="{ errors }" name="email" rules="required|email">
-                    <v-text-field v-model="email" :error-messages="errors" label="E-mail" required></v-text-field>
-                </validation-provider>
-                <validation-provider v-slot="{ errors }" name="select" rules="required">
-                    <v-select v-model="select" :items="items" :error-messages="errors" label="Select" data-vv-name="select" required></v-select>
-                </validation-provider>
+        <!-- <validation-observer ref="observer" v-slot="{ invalid }"> -->
+        <v-form ref="form" v-model="valid" lazy-validation>
+            <v-select
+                v-model="project"
+                label="Projekt"
+                :items="projects"
+                item-value="_id"
+                item-text="name"
+                required
+                :error-messages="errors"
+                data-vv-name="project"
+            />
+            <!-- <ValidationProvider v-slot="{ errors }" name="date" rules="required"> -->
+            <v-menu v-model="dateMenu" :close-on-content-click="false" :nudge-right="40" transition="scale-transition" offset-y min-width="290px">
+                <template v-slot:activator="{ on, attrs }">
+                    <v-text-field v-model="date" :error-messages="errors" label="Datum" readonly v-bind="attrs" v-on="on" required />
+                </template>
+                <v-date-picker v-model="date" @input="dateMenu = false"></v-date-picker>
+            </v-menu>
+            <!-- </ValidationProvider> -->
+            <!-- <ValidationProvider v-slot="{ errors }" name="email" rules="required|email"> -->
+            <v-text-field v-model="email" label="E-mail" required :error-messages="errors" />
+            <!-- </ValidationProvider> -->
 
-                <v-btn class="mr-4" type="submit" :disabled="invalid"> Sichern </v-btn>
-                <v-btn @click="clear"> Zurücksetzen </v-btn>
-            </form>
-        </validation-observer>
+            <v-btn class="mr-4" :disabled="!valid" @click="validate"> Sichern </v-btn>
+            <v-btn @click="clear"> Zurücksetzen </v-btn>
+        </v-form>
+        <!-- </validation-observer> -->
     </div>
 </template>
 
@@ -32,25 +36,36 @@
 import { Component, Vue } from "vue-property-decorator";
 import { mapGetters } from "vuex";
 import moment from "moment";
-import { extend, ValidationObserver, ValidationProvider, setInteractionMode } from "vee-validate";
+import { ValidationObserver, ValidationProvider, setInteractionMode } from "vee-validate";
+
+setInteractionMode("eager");
 
 @Component({
     components: { ValidationProvider, ValidationObserver },
-    computed: {
-        ...mapGetters(["projects"]),
-    },
-    methods: {
-        formatDate: value => {
-            if (value) return moment(String(value)).format("DD.MM.yyyy");
-        },
-    },
-    data: {
-        menu2: false,
-    },
+    computed: mapGetters(["projects"]),
 })
 export default class CreateTimeForm extends Vue {
+    project!: string;
+    date!: Date;
+    valid!: boolean;
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    data(): Record<string, any> {
+        return { project: this.project, date: this.date, email: "test 123", valid: true, dateMenu: false };
+    }
+
+    formatDate(value: string): string {
+        if (value) return moment(String(value)).format("DD.MM.yyyy");
+    }
+
     submit(): void {
-        return;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (this.$refs.form as any).validate();
+    }
+
+    clear(): void {
+        this.project = "";
+        this.date = null;
     }
 }
 </script>

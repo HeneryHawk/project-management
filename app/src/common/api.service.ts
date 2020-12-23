@@ -1,6 +1,8 @@
 import Vue from "vue";
-import axios, { AxiosResponse } from "axios";
+import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 import VueAxios from "vue-axios";
+import { IRestResponse } from "@/types/IRestResponse";
+import { IProject } from "@/types/IProject";
 
 class ApiService {
     public static init(): void {
@@ -10,8 +12,8 @@ class ApiService {
 
     // setHeader(): void {},
 
-    public static async query(resource: string, params: Record<string, unknown>): Promise<AxiosResponse<any>> {
-        return Vue.axios.get(resource, params).catch(error => {
+    public static async query<T>(resource: string, params: AxiosRequestConfig | undefined): Promise<AxiosResponse<IRestResponse<T[]>>> {
+        return await Vue.axios.get<IRestResponse<T[]>>(resource, params).catch(error => {
             throw new Error(`[RWV] ApiService ${error}`);
         });
     }
@@ -22,8 +24,8 @@ class ApiService {
         });
     }
 
-    public static async post(resource: string, params: Record<string, unknown>): Promise<AxiosResponse<any>> {
-        return Vue.axios.post(`${resource}`, params);
+    public static async post<T>(resource: string, params: T): Promise<AxiosResponse<IRestResponse<T>>> {
+        return await Vue.axios.post<IRestResponse<T>>(`${resource}`, params);
     }
 
     public static async update(resource: string, slug: string, params: Record<string, unknown>): Promise<AxiosResponse<any>> {
@@ -44,7 +46,10 @@ class ApiService {
 export default ApiService;
 
 export class ProjectService extends ApiService {
-    public static async query(): Promise<AxiosResponse<any>> {
-        return super.query("project", {});
+    public static async query<IProject>(): Promise<AxiosResponse<IRestResponse<IProject[]>>> {
+        return super.query<IProject>("project", {});
+    }
+    public static async post<IProject>(resource: string, project: IProject): Promise<AxiosResponse<IRestResponse<IProject>>> {
+        return super.post<IProject>("project", project);
     }
 }

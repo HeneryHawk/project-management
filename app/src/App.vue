@@ -29,7 +29,7 @@
                 </v-list>
             </v-navigation-drawer>
 
-            <v-content>
+            <v-main>
                 <v-container class="px-4 py-0 fill-height" fluid>
                     <v-row class="fill-height">
                         <v-col>
@@ -39,7 +39,7 @@
                         </v-col>
                     </v-row>
                 </v-container>
-            </v-content>
+            </v-main>
         </v-app>
     </div>
 </template>
@@ -52,8 +52,8 @@ export default Vue.extend({
         toggleMini: false,
         items: [
             { title: "Home", href: "/", icon: "mdi-home-outline" },
-            { title: "Zeit buchen", href: "/createTime", icon: "mdi-text-box-plus-outline" },
             { title: "Projekte", href: "/projects", icon: "mdi-view-list" },
+            { title: "Zeit buchen", href: "/createTime", icon: "mdi-text-box-plus-outline" },
             { title: "Zeiten", href: "/time", icon: "mdi-av-timer" },
         ],
     }),

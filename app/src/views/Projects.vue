@@ -21,3 +21,9 @@ import store from "./../store";
 })
 export default class Projects extends Vue {}
 </script>
+
+<style scoped>
+h1 {
+    padding-bottom: 1rem;
+}
+</style>
