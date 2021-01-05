@@ -5,9 +5,8 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
-import { Route, RawLocation } from "vue-router";
-import store from "./../store";
+import Vue from "vue";
+import Component from "vue-class-component";
 
 @Component({
     components: {},

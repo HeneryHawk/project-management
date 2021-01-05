@@ -2,6 +2,6 @@ export interface IProject {
     _id?: string;
     name: string;
     customer: string;
-    start: Date;
+    start: string;
     status: number;
 }

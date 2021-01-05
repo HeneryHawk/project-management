@@ -1,5 +1,9 @@
 import { IProject } from "./IProject";
 
-export interface IState {
+export interface IProjectState {
     projects: IProject[];
+}
+
+export interface IRootState {
+    version: string;
 }

@@ -33,7 +33,8 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import Vue from "vue";
+import Component from "vue-class-component";
 import { mapGetters } from "vuex";
 import moment from "moment";
 import { ValidationObserver, ValidationProvider, setInteractionMode } from "vee-validate";
@@ -45,17 +46,15 @@ setInteractionMode("eager");
     computed: mapGetters(["projects"]),
 })
 export default class CreateTimeForm extends Vue {
-    project!: string;
-    date!: Date;
-    valid!: boolean;
-
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    data(): Record<string, any> {
-        return { project: this.project, date: this.date, email: "test 123", valid: true, dateMenu: false };
-    }
+    private project = "";
+    private date = new Date();
+    private email = "test 123";
+    private valid = true;
+    private dateMenu = false;
 
     formatDate(value: string): string {
         if (value) return moment(String(value)).format("DD.MM.yyyy");
+        return "";
     }
 
     submit(): void {
@@ -65,7 +64,7 @@ export default class CreateTimeForm extends Vue {
 
     clear(): void {
         this.project = "";
-        this.date = null;
+        this.date = new Date();
     }
 }
 </script>

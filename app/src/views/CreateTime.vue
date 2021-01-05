@@ -6,7 +6,8 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import Vue from "vue";
+import Component from "vue-class-component";
 import { Route, RawLocation } from "vue-router";
 import store from "./../store";
 import CreateTimeForm from "./../components/CreateTimeForm.vue";
