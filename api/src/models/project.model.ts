@@ -1,5 +1,7 @@
 import { Schema, model, Document } from "mongoose";
 
+export const ModelName = "project";
+
 export interface IProject extends Document {
     name: string;
     customer: string;
@@ -17,4 +19,4 @@ const ProjectSchema: Schema = new Schema(
     { timestamps: true }
 );
 
-export const Model = model<IProject>("project", ProjectSchema);
+export const Model = model<IProject>(ModelName, ProjectSchema);

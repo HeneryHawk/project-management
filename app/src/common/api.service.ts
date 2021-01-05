@@ -4,6 +4,7 @@ import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 import VueAxios from "vue-axios";
 import { IRestResponse } from "@/types/IRestResponse";
 import { IProject } from "@/types/IProject";
+import { ITime } from "@/types/ITime";
 
 export default class ApiService<T> {
     public static init(): void {
@@ -53,5 +54,15 @@ export class ProjectService extends ApiService<IProject> {
 
     public async delete(id: string): Promise<AxiosResponse<IRestResponse<boolean>>> {
         return super.delete(id, "project");
+    }
+}
+
+export class TimeService extends ApiService<ITime> {
+    public async query(): Promise<AxiosResponse<IRestResponse<ITime[]>>> {
+        return super.query({}, "time");
+    }
+
+    public async post(project: ITime): Promise<AxiosResponse<IRestResponse<ITime>>> {
+        return super.post(project, "time");
     }
 }

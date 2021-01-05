@@ -6,8 +6,8 @@
             </v-card-title>
             <v-card-text>
                 <v-form>
-                    <v-text-field v-model="project.name" label="Name*" required />
-                    <v-text-field v-model="project.customer" label="Kunde*" required />
+                    <v-text-field v-model="project.name" label="Name" class="required" required />
+                    <v-text-field v-model="project.customer" label="Kunde" class="required" required />
                     <v-menu
                         v-model="openStartPicker"
                         :close-on-content-click="false"
@@ -21,7 +21,7 @@
                         </template>
                         <v-date-picker v-model="project.start" @input="openStartPicker = false" />
                     </v-menu>
-                    <v-select v-model="project.status" label="Status*" :items="statusList" item-value="id" item-text="text" required />
+                    <v-select v-model="project.status" label="Status" :items="statusList" class="required" item-value="id" item-text="text" required />
                 </v-form>
                 <small>*Pflichtfelder</small>
             </v-card-text>

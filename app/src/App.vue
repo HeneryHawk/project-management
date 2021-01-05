@@ -59,3 +59,9 @@ export default Vue.extend({
     }),
 });
 </script>
+
+<style>
+.required label::after {
+    content: "*";
+}
+</style>

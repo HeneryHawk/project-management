@@ -6,6 +6,7 @@ import vuetify from "./plugins/vuetify";
 import { ValidationProvider } from "vee-validate";
 import ApiService from "./common/api.service";
 import moment from "moment";
+import { VueMaskDirective } from "v-mask";
 
 Vue.config.productionTip = false;
 
@@ -16,6 +17,7 @@ Vue.filter("formatDate", (value: string) => {
 });
 
 Vue.component("ValidationProvider", ValidationProvider);
+Vue.directive("mask", VueMaskDirective);
 
 new Vue({
     router,
